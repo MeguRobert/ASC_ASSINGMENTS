@@ -51,9 +51,10 @@ namespace Conversii_intre_Baze
 
             //convertirea unui numar intreg din baza 10 in baza inferior
 
-            
+            if (cat == 0)result += cat;
             while(cat > 0)
-            {                
+            {     
+                //TODO transcriere in metoda recursiva
                 cat = numar / bazaTinta;
                 rest = numar % bazaTinta;
                 stiva.Push(rest);
