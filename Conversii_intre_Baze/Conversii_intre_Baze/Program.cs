@@ -11,15 +11,6 @@ namespace Conversii_intre_Baze
     {
         static void Main(string[] args)
         {
-            //convertirea din baza 10 in baza 2
-            //convertirea din baza 2 in baza 10
-
-            //convertirea din baza 10 in baza 16
-            //convertirea din baza 16 in baza 10
-
-            //convertirea din baza 2 in baza 16
-            //convertirea din baza 16 in baza 2
-
             int baza , bazaTinta, nr, fractie;
             string line;
             
@@ -35,18 +26,13 @@ namespace Conversii_intre_Baze
 
             string[] split = line.Split('.');
             nr = int.Parse(split[0]);
+            fractie = 0;
             bool ok = false;
             if (split.Length <= 2 && split.Length > 0)
             {
 
-                if (split.Length == 1)
+                if (split.Length == 2)
                 {
-                    nr = int.Parse(split[0]);
-                    fractie = 0;
-                }
-                else
-                {
-                    nr = int.Parse(split[0]);
                     fractie = int.Parse(split[1]);
                 }
                 ok = true;
@@ -64,6 +50,8 @@ namespace Conversii_intre_Baze
             numar = nr;
 
             //convertirea unui numar intreg din baza 10 in baza inferior
+
+            
             while(cat > 0)
             {                
                 cat = numar / bazaTinta;
@@ -71,10 +59,35 @@ namespace Conversii_intre_Baze
                 stiva.Push(rest);
                 numar = cat;
             }
+
             while (stiva.Count > 0)
             {
                 result += stiva.Pop();
             }
+
+            if (fractie != 0)
+            {
+                double fr = fractie;
+                numar = split[1].Length;
+
+                while (numar>0)
+                {
+                    fr /= baza;
+                    numar--;
+                }
+                Console.WriteLine($"fractie= {fr}");
+                result += ".";
+                while (fr > 0)
+                {
+                    fr = fr * bazaTinta;
+                    cat = (int)fr;
+                    fr -= cat;
+                    result += cat;
+                }
+               
+            }
+
+           
             Console.WriteLine(result);
 
           //  Console.ReadKey();
