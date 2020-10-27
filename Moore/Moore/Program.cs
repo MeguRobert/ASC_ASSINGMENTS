@@ -14,7 +14,7 @@ namespace Moore
             int n;
             while (true)
             {
-                Console.WriteLine("     Introduceti un numar natural n, pentru a se afla timpul necesar,\n  ca tranzistoarele sa devine de n-ori mai rapide decat in momentul de fata:");
+                Console.WriteLine("     Introduceti un numar natural n, pentru a afla timpul necesar,\n  ca tranzistoarele sa devine de n-ori mai rapide decat in momentul de fata:");
                 input = Console.ReadLine();
                 //folosim TryParse pentru a consulta daca input-ul este un numar natural, sau nu.
                 if (int.TryParse(input, out n) && n > 0 )

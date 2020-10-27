@@ -20,19 +20,46 @@ namespace Conversii_intre_Baze
             //convertirea din baza 2 in baza 16
             //convertirea din baza 16 in baza 2
 
-            int baza , bazaTinta, nr;
-
+            int baza , bazaTinta, nr, fractie;
+            string line;
+            
             Console.WriteLine("Introduceti baza din care doriti sa convertiti numarul");
             baza = int.Parse(Console.ReadLine());
             Console.WriteLine("Introduceti bazaTinta in care doriti sa convertiti numarul");
             bazaTinta = int.Parse(Console.ReadLine());
+
+            //conditii
+            //while(!numarCorect)
             Console.WriteLine("Introduceti numarul care trebuie convertit");
-            nr = int.Parse(Console.ReadLine());
+            line = Console.ReadLine();
 
+            string[] split = line.Split('.');
+            nr = int.Parse(split[0]);
+            bool ok = false;
+            if (split.Length <= 2 && split.Length > 0)
+            {
 
-            Stack<int> stiva = new Stack<int>();
+                if (split.Length == 1)
+                {
+                    nr = int.Parse(split[0]);
+                    fractie = 0;
+                }
+                else
+                {
+                    nr = int.Parse(split[0]);
+                    fractie = int.Parse(split[1]);
+                }
+                ok = true;
+            }
+            else
+            {
+                // Nu e nr corect
+            }
+
+            Stack<double> stiva = new Stack<double>();
             int cat, rest, numar;
             string result="";
+            string[] hex = { "A", "B", "C", "D", "E", "F" };
             cat = nr;
             numar = nr;
 
@@ -50,7 +77,7 @@ namespace Conversii_intre_Baze
             }
             Console.WriteLine(result);
 
-            Console.ReadKey();
+          //  Console.ReadKey();
         }
     }
 }
