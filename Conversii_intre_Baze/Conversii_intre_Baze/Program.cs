@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
+using System.Security.Permissions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,32 +20,23 @@ namespace Conversii_intre_Baze
  
             string[] split = line.Split('.');
             fractie = 0;
-            bool ok = false;//?
-            if (split.Length <= 2 && split.Length > 0)
-            {
-
-                if (split.Length == 2)
-                {
-                    fractie = int.Parse(split[1]);
-                }
-                ok = true;
-            }
-            else
+            while(!(split.Length <= 2 && split.Length > 0))
             {
                 Console.WriteLine("\n Nu era numar corect!  Va rog introduceti datele din nou! \n");
                 GetData(ref baza, ref bazaTinta, ref line);
                 split = line.Split('.');
             }
             nr = int.Parse(split[0]);
-            if(baza==10)
-            ConvertFromBase10(nr,baza,bazaTinta,fractie, ref result, split);
-            if (bazaTinta == 10)
-            ConvertToBase10(nr,ref baza,bazaTinta,fractie, ref result, split);
-            Console.WriteLine(result);
-            //  Console.ReadKey();
+            if (split.Length == 2) fractie = int.Parse(split[1]);
+
+            if (baza!= 10)
+            nr=ConvertToBase10(nr,ref baza,bazaTinta,fractie, ref result, split);
+            if (bazaTinta != 10)
+                ConvertFromBase10(nr, baza, bazaTinta, fractie, ref result, split);
+            Console.WriteLine("\n REZULTAT: "+result);
         }
 
-        private static void ConvertToBase10(int nr,ref int baza, int bazaTinta, int fractie, ref string result, string[] split)
+        private static int ConvertToBase10(int nr,ref int baza, int bazaTinta, int fractie, ref string result, string[] split)
         {
             int i=0, num = 0; ;
        
@@ -53,16 +46,25 @@ namespace Conversii_intre_Baze
                 i++;
                 nr /= 10;
             }
-            Console.WriteLine(num);
-       
+            return num;
         }
 
         private static string ConvertFromBase10(int nr,int baza, int bazaTinta, int fractie, ref string result, string[] split)
         {
-
+            result = "";
             Stack<double> stiva = new Stack<double>();
             int cat, rest, numar;
-            
+
+
+            ///////////
+
+            int x = 16 - bazaTinta;
+
+            ////////////
+            ///
+
+
+
             string[] hex = { "A", "B", "C", "D", "E", "F" };
             cat = nr;
             numar = nr;
@@ -90,7 +92,7 @@ namespace Conversii_intre_Baze
 
                 while (numar > 0)
                 {
-                    fr /= baza;
+                    fr /= 10;
                     numar--;
                 }
                 Console.WriteLine($"fractie= {fr}");
