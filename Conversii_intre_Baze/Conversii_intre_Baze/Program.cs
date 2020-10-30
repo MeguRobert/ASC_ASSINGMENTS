@@ -26,6 +26,7 @@ namespace Conversii_intre_Baze
                 GetData(ref baza, ref bazaTinta, ref line);
                 split = line.Split('.');
             }
+           
             nr = int.Parse(split[0]);
             if (split.Length == 2) fractie = int.Parse(split[1]);
 
@@ -56,16 +57,6 @@ namespace Conversii_intre_Baze
             Stack<double> stiva = new Stack<double>();
             int cat, rest, numar;
 
-
-            ///////////
-
-            int x = 16 - bazaTinta;
-
-            ////////////
-            ///
-
-
-
             string[] hex = { "A", "B", "C", "D", "E", "F" };
             cat = nr;
             numar = nr;
@@ -83,7 +74,11 @@ namespace Conversii_intre_Baze
 
             while (stiva.Count > 0)
             {
-                result += stiva.Pop();
+                double x = stiva.Pop();
+                if (x >= 10)
+                    result += hex[(int)x - 10];
+                else
+                    result += x;
             }
 
             if (fractie != 0)
