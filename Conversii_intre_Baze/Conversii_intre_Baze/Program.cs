@@ -31,6 +31,7 @@ namespace Conversii_intre_Baze
 
             if (baza!= 10)
             nr=ConvertToBase10(nr,ref baza,bazaTinta,fractie, ref result, split);
+            result += nr;
             if (bazaTinta != 10)
                 ConvertFromBase10(nr, baza, bazaTinta, fractie, ref result, split);
             Console.WriteLine("\n REZULTAT: "+result);
@@ -131,7 +132,7 @@ namespace Conversii_intre_Baze
             //while(!numarCorect)
             Console.WriteLine("Introduceti numarul care trebuie convertit");
             line = Console.ReadLine();
-            if (line[0] == '0') line = line.TrimStart('0');
+            if (line[0] == '0' && line[1] == '0') line = line.TrimStart('0');
             
         }
 
