@@ -14,10 +14,10 @@ namespace Conversii_intre_Baze
     {
         static void Main(string[] args)
         {
-            int baza=0, bazaTinta=0, nr, fractie;
+            int baza=0, bazaTinta=0, nr=0, fractie;
             string line="", result = "";
             GetData(ref baza, ref bazaTinta, ref  line);
- 
+
             string[] split = line.Split('.');
             fractie = 0;
             while(!(split.Length <= 2 && split.Length > 0))
@@ -26,29 +26,97 @@ namespace Conversii_intre_Baze
                 GetData(ref baza, ref bazaTinta, ref line);
                 split = line.Split('.');
             }
-           
-            nr = int.Parse(split[0]);
-            if (split.Length == 2) fractie = int.Parse(split[1]);
+
+            Console.Write(" WOOOW:   ");
+            Console.WriteLine(split[0]);
 
             if (baza!= 10)
-            nr=ConvertToBase10(nr,ref baza,bazaTinta,fractie, ref result, split);
-            result += nr;
+                ConvertToBase10(ref nr,ref baza,bazaTinta,fractie, ref result, split);
+            //result += nr;
             if (bazaTinta != 10)
                 ConvertFromBase10(nr, baza, bazaTinta, fractie, ref result, split);
             Console.WriteLine("\n REZULTAT: "+result);
         }
 
-        private static int ConvertToBase10(int nr,ref int baza, int bazaTinta, int fractie, ref string result, string[] split)
+        private static void ParseMyString(ref int nr, ref int fractie, ref string[] split)
         {
-            int i=0, num = 0; ;
-       
-            while (nr>0)
+            
+            if (int.TryParse(split[0], out nr))
             {
-                num += nr % 10 * (int)Math.Pow(baza, i);
-                i++;
-                nr /= 10;
+                
             }
-            return num;
+            if (split.Length == 2)
+                if (int.TryParse(split[1], out fractie))
+                {
+                    
+                }
+          
+        }
+
+        private static void ConvertToBase10(ref int nr,ref int baza, int bazaTinta, int fractie, ref string result, string[] split)
+        {
+            int num = 0, p = 0;
+            if (baza > 10)
+            {
+                if (int.TryParse(split[0], out nr))
+                {
+                    while (nr > 0)
+                    {
+                        num += nr % 10 * (int)Math.Pow(baza, p);
+                        p++;
+                        nr /= 10;
+                    }
+                }
+                else
+                {
+                    string hex = "ABCDEF";
+                    int x = 0;
+                    for (int i = split[0].Length - 1; i >= 0; i--)
+                    {
+                        var k = split[0][i];
+                        if(k > 9 || k < 0)
+                        foreach (var h in hex)
+                        {
+                            if (k == h)
+                            {
+                                x = hex.IndexOf(k) + 10;
+                                Console.WriteLine(x);
+                                num += x * (int)Math.Pow(baza, p);
+                                p++;
+                            }
+                        }
+                    }
+
+                }
+                
+
+
+
+                if (split.Length == 2)
+                    if (int.TryParse(split[1], out fractie))
+                    {
+
+                    }
+
+            }
+            else
+            {
+                while (nr > 0)
+                {
+                    num += nr % 10 * (int)Math.Pow(baza, p);
+                    p++;
+                    nr /= 10;
+                }
+            }
+            result += num;
+            ///////////////////
+
+            if (fractie!=0)
+            {
+                result += ".";
+                result += fractie;
+            }
+            
         }
 
         private static string ConvertFromBase10(int nr,int baza, int bazaTinta, int fractie, ref string result, string[] split)
