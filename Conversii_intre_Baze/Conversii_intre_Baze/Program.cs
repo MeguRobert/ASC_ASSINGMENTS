@@ -32,9 +32,14 @@ namespace Conversii_intre_Baze
 
             if (baza!= 10)
                 ConvertToBase10(ref nr,ref baza,bazaTinta,fractie, ref result, split);
-            //result += nr;
+            //
             if (bazaTinta != 10)
+            {
+                nr = int.Parse(split[0]);
+                
                 ConvertFromBase10(nr, baza, bazaTinta, fractie, ref result, split);
+            }
+                
             Console.WriteLine("\n REZULTAT: "+result);
         }
 
@@ -55,9 +60,9 @@ namespace Conversii_intre_Baze
 
         private static void ConvertToBase10(ref int nr,ref int baza, int bazaTinta, int fractie, ref string result, string[] split)
         {
-            int num = 0, p = 0;
-            if (baza > 10)
-            {
+            int  p = 0;
+            double num = 0;
+            
                 if (int.TryParse(split[0], out nr))
                 {
                     while (nr > 0)
@@ -69,45 +74,32 @@ namespace Conversii_intre_Baze
                 }
                 else
                 {
-                    string hex = "ABCDEF";
+                    string hex = "0123456789ABCDEF";
                     int x = 0;
                     for (int i = split[0].Length - 1; i >= 0; i--)
                     {
                         var k = split[0][i];
-                        if(k > 9 || k < 0)
-                        foreach (var h in hex)
-                        {
-                            if (k == h)
+                        
+                            foreach (var h in hex)
                             {
-                                x = hex.IndexOf(k) + 10;
-                                Console.WriteLine(x);
-                                num += x * (int)Math.Pow(baza, p);
-                                p++;
+                                if (k == h)
+                                {
+                                    x = hex.IndexOf(k);
+                                    Console.WriteLine(x);
+                                    num += x * (int)Math.Pow(baza, p);
+                                    p++;
+                                }
                             }
-                        }
                     }
 
                 }
-                
-
-
 
                 if (split.Length == 2)
                     if (int.TryParse(split[1], out fractie))
                     {
-
+                        
                     }
 
-            }
-            else
-            {
-                while (nr > 0)
-                {
-                    num += nr % 10 * (int)Math.Pow(baza, p);
-                    p++;
-                    nr /= 10;
-                }
-            }
             result += num;
             ///////////////////
 
@@ -122,6 +114,7 @@ namespace Conversii_intre_Baze
         private static string ConvertFromBase10(int nr,int baza, int bazaTinta, int fractie, ref string result, string[] split)
         {
             result = "";
+
             Stack<double> stiva = new Stack<double>();
             int cat, rest, numar;
 
@@ -182,14 +175,11 @@ namespace Conversii_intre_Baze
                 baza = int.Parse(Console.ReadLine());
             } while (baza < 2 || baza > 16);
             
-            
-            
             do
             {
                 Console.WriteLine("Introduceti bazaTinta in care doriti sa convertiti numarul");
                 bazaTinta = int.Parse(Console.ReadLine());
             } while (bazaTinta < 2 || bazaTinta > 16);
-            
 
             //conditii
             //while(!numarCorect)
