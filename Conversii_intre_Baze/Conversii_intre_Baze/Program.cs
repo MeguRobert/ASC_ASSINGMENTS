@@ -35,27 +35,13 @@ namespace Conversii_intre_Baze
             //
             if (bazaTinta != 10)
             {
+                if(nr==0)
                 nr = int.Parse(split[0]);
                 
                 ConvertFromBase10(nr, baza, bazaTinta, fractie, ref result, split);
             }
                 
             Console.WriteLine("\n REZULTAT: "+result);
-        }
-
-        private static void ParseMyString(ref int nr, ref int fractie, ref string[] split)
-        {
-            
-            if (int.TryParse(split[0], out nr))
-            {
-                
-            }
-            if (split.Length == 2)
-                if (int.TryParse(split[1], out fractie))
-                {
-                    
-                }
-          
         }
 
         private static void ConvertToBase10(ref int nr,ref int baza, int bazaTinta, int fractie, ref string result, string[] split)
@@ -108,7 +94,7 @@ namespace Conversii_intre_Baze
                 result += ".";
                 result += fractie;
             }
-            
+            nr = (int)num;
         }
 
         private static string ConvertFromBase10(int nr,int baza, int bazaTinta, int fractie, ref string result, string[] split)
