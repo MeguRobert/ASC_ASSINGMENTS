@@ -27,16 +27,16 @@ namespace Conversii_intre_Baze
                 split = line.Split('.');
             }
 
-            Console.Write(" WOOOW:   ");
-            Console.WriteLine(split[0]);
-
             if (baza!= 10)
                 ConvertToBase10(ref nr,ref baza,bazaTinta,fractie, ref result, split);
             //
             if (bazaTinta != 10)
             {
-                if(nr==0)
-                nr = int.Parse(split[0]);
+                if (nr == 0)
+                    nr = int.Parse(split[0]);
+                if (split.Length == 2)
+                    if (fractie == 0)
+                        fractie = int.Parse(split[1]);
                 
                 ConvertFromBase10(nr, baza, bazaTinta, fractie, ref result, split);
             }
@@ -71,7 +71,6 @@ namespace Conversii_intre_Baze
                                 if (k == h)
                                 {
                                     x = hex.IndexOf(k);
-                                    Console.WriteLine(x);
                                     num += x * (int)Math.Pow(baza, p);
                                     p++;
                                 }
@@ -138,7 +137,7 @@ namespace Conversii_intre_Baze
                     fr /= 10;
                     numar--;
                 }
-                Console.WriteLine($"fractie= {fr}");
+                //Console.WriteLine($"fractie= {fr}");
                 result += ".";
                 while (fr > 0)
                 {
