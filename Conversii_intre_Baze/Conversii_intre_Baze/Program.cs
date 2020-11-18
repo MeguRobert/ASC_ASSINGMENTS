@@ -18,6 +18,7 @@ namespace Conversii_intre_Baze
             string line="", result = "";
             GetData(ref baza, ref bazaTinta, ref  line);
 
+
             string[] split = line.Split('.');
             fractie = 0;
             while(!(split.Length <= 2 && split.Length > 0))
