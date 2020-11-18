@@ -57,6 +57,8 @@ namespace Conversii_intre_Baze
                         p++;
                         nr /= 10;
                     }
+
+
                 }
                 else
                 {
@@ -78,25 +80,34 @@ namespace Conversii_intre_Baze
                     }
 
                 }
-
                 if (split.Length == 2)
                     if (int.TryParse(split[1], out fractie))
                     {
-                        
+                        if (fractie != 0)
+                        {
+                            int fr = fractie;
+                            p = -split[1].Length;
+                       
+                            while (fr > 0)
+                            {
+                                num += fr % 10 * Math.Pow(baza, p);
+                                 p++;
+                                 fr /= 10;
+                            }
+
+                        }
+                       
                     }
 
             result += num;
+            Console.WriteLine("RES:"+result);
             ///////////////////
-
-            if (fractie!=0)
-            {
-                result += ".";
-                result += fractie;
-            }
             nr = (int)num;
+            //TODO
+            //fractie
         }
 
-        private static string ConvertFromBase10(int nr,int baza, int bazaTinta, int fractie, ref string result, string[] split)
+        private static void ConvertFromBase10(int nr,int baza, int bazaTinta, int fractie, ref string result, string[] split)
         {
             result = "";
 
@@ -137,7 +148,6 @@ namespace Conversii_intre_Baze
                     fr /= 10;
                     numar--;
                 }
-                //Console.WriteLine($"fractie= {fr}");
                 result += ".";
                 while (fr > 0)
                 {
@@ -148,7 +158,7 @@ namespace Conversii_intre_Baze
                 }
                
             }
-            return result;
+            
         }
 
         private static void GetData(ref int baza,ref int bazaTinta,ref string line)
